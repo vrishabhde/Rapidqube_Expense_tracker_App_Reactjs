@@ -7,11 +7,12 @@ const Register = () => {
         password: "",
         confirmpassword: "",
         number: "",
+        expenses: []
     });
 
-    let checkUser = JSON.parse(localStorage.getItem("users"))
-    const [users, setusers] = useState(checkUser ? checkUser : []
-    );
+    // Retrieve users from local storage
+    let checkUser = JSON.parse(localStorage.getItem("users")) || [];
+    const [users, setUsers] = useState(checkUser);
 
     const handlechange = (e) => {
         setuserdata({ ...userdata, [e.target.name]: e.target.value });
@@ -20,7 +21,6 @@ const Register = () => {
     const handlesubmit = (e) => {
         e.preventDefault();
 
-    
         if (!userdata.name || !userdata.email || !userdata.password || !userdata.confirmpassword || !userdata.number) {
             return alert("All fields are mandatory");
         }
@@ -34,24 +34,24 @@ const Register = () => {
             return alert("Credentials not matched");
         }
 
-
-        const existingUser = users.find((user) => user.email === userdata.email);
-
-        if (existingUser) {
-
-            return alert("user already Registered, please proceed to login ");
+        // Check if user already exists
+        console.log(users,"busers")
+        if (users.find((user) => user.email === userdata.email)) {
+            return alert("User already registered, please proceed to login");
         }
-
+        // Update users state and local storage
         const updatedUsers = [...users, userdata];
+        setUsers(updatedUsers);
         localStorage.setItem("users", JSON.stringify(updatedUsers));
+        console.log(users,"ausers")
+
         alert("Registration Success");
         setuserdata({ name: "", email: "", password: "", confirmpassword: "", number: "" });
-
     };
 
     return (
         <>
-            <h2>Sign up </h2>
+            <h2>Sign up</h2>
             <form onSubmit={handlesubmit}>
                 <input
                     type="text"
@@ -67,14 +67,16 @@ const Register = () => {
                     name="email"
                     value={userdata.email}
                     onChange={handlechange}
-                /> <br />
+                />
+                <br />
                 <input
                     type="password"
                     placeholder="password"
                     name="password"
                     value={userdata.password}
                     onChange={handlechange}
-                /> <br />
+                />
+                <br />
                 <input
                     type="password"
                     placeholder="confirmpassword"

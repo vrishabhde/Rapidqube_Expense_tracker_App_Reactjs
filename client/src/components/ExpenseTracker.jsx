@@ -6,8 +6,8 @@ const ExpenseTracker = () => {
         console.log(checkUser[i].email,"checkuser")
     }
     
-  const userId = "abc@123"; // Replace with actual user identifier from authentication
-  const localStorageKey = "users";
+  const userId = ""; // Replace with actual user identifier from authentication
+  const localStorageKey = "currentUser";
 
   const [users, setUsers] = useState({});
   const [categories, setCategories] = useState(["Groceries", "Utilities", "Rent", "Other"]);
@@ -40,10 +40,10 @@ const ExpenseTracker = () => {
     const currentUser = users[userId] || { expenses: [] };
     const updatedExpenses = [...currentUser.expenses, newExpense];
     
-    // Update the user object in the state
+    
     setUsers((prevUsers) => ({ ...prevUsers, [userId]: { expenses: updatedExpenses } }));
 
-    // Save user data to localStorage
+    
     localStorage.setItem(localStorageKey, JSON.stringify({ ...users, [userId]: { expenses: updatedExpenses } }));
 
     setNewExpense({
@@ -55,7 +55,7 @@ const ExpenseTracker = () => {
   };
 
   const deleteExpense = (index) => {
-    // Ensure 'expenses' key exists in the user object
+  
     const currentUser = users[userId] || { expenses: [] };
     const updatedExpenses = [...currentUser.expenses];
     updatedExpenses.splice(index, 1);

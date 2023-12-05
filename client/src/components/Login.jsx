@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
- 
+
 const Login = () => {
-    const router = useNavigate();
+  const router = useNavigate();
   const [userdata, setuserdata] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const checkUser = JSON.parse(localStorage.getItem("users")) || [];
-  
+
   const handlesubmit = (e) => {
     e.preventDefault();
 
@@ -20,12 +20,14 @@ const Login = () => {
     }
 
     if (existingUser.password !== userdata.password) {
-      return alert("credentials not matched");
+      return alert("Credentials not matched");
     }
 
+    // Store the current user in local storage
+    localStorage.setItem("currentUser", JSON.stringify(existingUser));
 
     alert("Login successful!");
-    router ("/")
+    router("/");
     setuserdata({ email: "", password: "" });
   };
 
@@ -43,14 +45,16 @@ const Login = () => {
           name="email"
           value={userdata.email}
           onChange={handlechange}
-        /> <br />
+        />{" "}
+        <br />
         <input
           type="password"
           placeholder="Password"
           name="password"
           value={userdata.password}
           onChange={handlechange}
-        /> <br />
+        />{" "}
+        <br />
 
         <input type="submit" value="Login" />
       </form>
