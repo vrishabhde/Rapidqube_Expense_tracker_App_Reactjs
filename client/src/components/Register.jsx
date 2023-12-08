@@ -1,50 +1,28 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
 
-    const router = useNavigate();
+    const [userdata, setuserdata] = useState({ name: "",email: "",password: "",confirmpassword: "",number: ""});
 
-    const [userdata, setuserdata] = useState({ name: "",email: "",password: "",confirmpassword: "",number: "",expenses: []});
-
-
-    let checkUser = JSON.parse(localStorage.getItem("users")) || [];
-    const [users, setUsers] = useState(checkUser);
 
     const handlechange = (e) => {
         setuserdata({ ...userdata, [e.target.name]: e.target.value });
     };
 
-    const handlesubmit = (e) => {
+    const handlesubmit = async(e) => {
         e.preventDefault();
-
-        if (!userdata.name || !userdata.email || !userdata.password || !userdata.confirmpassword || !userdata.number) {
-            return alert("All fields are mandatory");
-        }
-        if (userdata.number.length < 10) {
-            return alert("Number should be a minimum of 10 numbers");
-        }
-        if (userdata.password.length < 5) {
-            return alert("Password should be a minimum of 5 characters");
-        }
-        if (userdata.password !== userdata.confirmpassword) {
-            return alert("Credentials not matched");
+        try {
+            const axiosRequest = await axios.post("http://localhost:3001/users", {
+                username: userdata?.name,
+                email: userdata?.email,
+                password: userdata?.password,
+                phone: userdata?.number
+            });
+        } catch (error) {
+            console.log(error);
         }
 
-    
-        console.log(users, "busers")
-        if (users.find((user) => user.email === userdata.email)) {
-            return alert("User already registered, please proceed to login");
-        }
-        
-        const updatedUsers = [...users, userdata];
-        setUsers(updatedUsers);
-        localStorage.setItem("users", JSON.stringify(updatedUsers));
-        console.log(users, "ausers")
-
-        alert("Registration Success");
-        setuserdata({ name: "", email: "", password: "", confirmpassword: "", number: "" });
-        router("/login")
     };
 
     return (
