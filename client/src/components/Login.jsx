@@ -1,38 +1,41 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
-  const router = useNavigate();
+  const route = useNavigate()
   const [userdata, setuserdata] = useState({ email: "", password: "" });
-
-  const checkUser = JSON.parse(localStorage.getItem("users")) || [];
-
-  const handlesubmit = (e) => {
-    e.preventDefault();
-
-    const existingUser = checkUser.find((user) => user.email === userdata.email);
-    if (!userdata.password && !userdata.email) {
-      return alert("please provide email and password")
-    }
-    if (!existingUser) {
-      return alert("User not found. Please register.");
-    }
-
-    if (existingUser.password !== userdata.password) {
-      return alert("Credentials not matched");
-    }
-
-
-    localStorage.setItem("currentUser", JSON.stringify(existingUser));
-
-    alert("Login successful!");
-    router("/");
-    setuserdata({ email: "", password: "" });
-  };
 
   const handlechange = (e) => {
     setuserdata({ ...userdata, [e.target.name]: e.target.value });
   };
+
+  const handlesubmit = async(e) => {
+    e.preventDefault();
+
+    try {
+      if(!userdata.email || !userdata.password){
+        throw new Error("Fields are required.");
+      }
+      const axiosRequest = await axios.get(`http://localhost:3001/users?email=${userdata.email}`);
+      const response = axiosRequest.data;
+
+      if(userdata.password !== response[0].password){
+        throw new Error("Invalid credentials.");
+      }
+
+      if(!response.length){
+        throw new Error("You are not registered.");
+      }else{
+        localStorage.setItem("etUserId", JSON.stringify(response[0].id));
+        alert("Logged in successfully.");
+        route("/");
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
 
   return (
     <>
