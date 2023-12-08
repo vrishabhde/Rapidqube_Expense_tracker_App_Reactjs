@@ -12,24 +12,9 @@ const ExpenseTracker = ()=> {
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#8c1a12" viewBox="0 0 256 256"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM112,168a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm0-120H96V40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8Z"></path></svg>
             </button>
 
-
             {/* add Expense */}
             <form  className="h-[500px] w-[350px] flex flex-col justify-between border border-white-500 rounded-md p-4 ">
-                <h2 className="text-3xl font-bold underline text-blue-500 " >Sign up</h2>
-
-                <input className="border border-gray-500 rounded-md p-2 placeholder-black mt-[20px]" type="text" placeholder="name" name="name"  />
-                <br />
-                <input className="border border-gray-500 rounded-md p-2 placeholder-black" type="email" placeholder="email" name="email"  />
-                <br />
-                <input className="border border-gray-500 rounded-md p-2 placeholder-black" type="password" placeholder="password" name="password" 
-                />
-                <br />
-                <input
-                 className="border border-gray-500 rounded-md p-2 placeholder-black" type="password" placeholder="confirmpassword" name="confirmpassword"  /><br />
-                <input className="border border-gray-500 rounded-md p-2 placeholder-black" type="text" placeholder="Contact Number" name="number" 
-                /> <br />
-
-                <input className="bg-blue-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Register" />
+                <input type="datetime-local" value="2018-06-12T19:30"/>
             </form>
 
         </>
