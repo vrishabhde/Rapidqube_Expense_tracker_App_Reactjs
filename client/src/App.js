@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import Navbar from './global/Navbar';
 
+
 function App() {
   const location = useLocation();
   const hiddenRoutes = ["/register", "/login"];
@@ -16,7 +17,6 @@ function App() {
       <Routes>
         <Route exact path='/register' element={<Register />} />
         <Route exact path='/login' element={<Login />} />
-        <Route exact path="/" element={<Home />} />
       </Routes>
 
     </>
