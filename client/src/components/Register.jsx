@@ -13,14 +13,50 @@ const Register = () => {
     const handlesubmit = async(e) => {
         e.preventDefault();
         try {
+            
+            if(!userdata.name || !userdata.email || !userdata.password || !userdata.confirmpassword || !userdata.number){
+                throw new Error('Fields are required');
+            }
+
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if(!emailRegex.test(userdata.email)){
+                throw new Error('Email is not valid');
+            }
+
+            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if( !passwordRegex.test(userdata.password)){
+                throw new Error("Password is not valid");
+            }
+
+            if(userdata.password !== userdata.confirmpassword){
+                throw new Error("Password not matched");
+            }
+
+            const numberRegex = /\d{10}$/
+            if(!numberRegex.test(userdata.number)){
+                throw new Error("Number is not valid")
+            }
+
+            const isUser = await axios.get(`http://localhost:3001/users?username=${userdata.name}&email=${userdata.email}`);
+
+            if(isUser.data.length){
+                throw new Error("User already Present");
+            }
             const axiosRequest = await axios.post("http://localhost:3001/users", {
                 username: userdata?.name,
                 email: userdata?.email,
                 password: userdata?.password,
                 phone: userdata?.number
             });
+
+            if(axiosRequest.status == 201){
+                alert("User Regestration sucessful");
+            }else{
+                alert("User Regestration unscussful");
+            }
+            
         } catch (error) {
-            console.log(error);
+            alert(error.message);
         }
 
     };
@@ -39,7 +75,7 @@ const Register = () => {
                 <br />
                 <input
                  className="border border-gray-500 rounded-md p-2 placeholder-black" type="password" placeholder="confirmpassword" name="confirmpassword" value={userdata.confirmpassword} onChange={handlechange} /><br />
-                <input className="border border-gray-500 rounded-md p-2 placeholder-black" type="number" placeholder="Contact Number" name="number" value={userdata.number} onChange={handlechange}
+                <input className="border border-gray-500 rounded-md p-2 placeholder-black" type="text" placeholder="Contact Number" name="number" value={userdata.number} onChange={handlechange}
                 /> <br />
 
                 <input className="bg-blue-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Register" />
