@@ -49,7 +49,7 @@ const Register = () => {
                 phone: userdata?.number
             });
 
-            if(axiosRequest.status == 201){
+            if(axiosRequest.status === 201){
                 alert("User Regestration sucessful");
             }else{
                 alert("User Regestration unscussful");
