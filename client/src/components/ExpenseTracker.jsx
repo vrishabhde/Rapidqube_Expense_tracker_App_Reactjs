@@ -5,7 +5,6 @@ import 'tailwindcss/tailwind.css';
 
 const ExpenseTracker = ()=> {
     const [expenseList, setExpenseList] = useState([])  
-
       
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -14,7 +13,6 @@ const ExpenseTracker = ()=> {
         update:false,
         delete:false
     });
-
     const openUpdateModal =async ()=>{
 
         const getExpenseList = await axios.get('http://localhost:3001/expenses');
@@ -38,7 +36,8 @@ const ExpenseTracker = ()=> {
     });
 
     const handelChange =(e)=>{
-        setExpense({...expense, [e.target.name] : e.target.value});
+        const {name, value} = e.target;
+        setExpense({...expense, [name] : value});
     }
 
     const addExpense = async(e)=>{
