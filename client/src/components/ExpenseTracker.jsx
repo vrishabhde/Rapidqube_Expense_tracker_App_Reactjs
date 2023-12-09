@@ -34,14 +34,14 @@ const ExpenseTracker = ()=> {
         });
         setModalIsOpen(true);
     }
-
+    
     const [expense, setExpense] = useState({
         createStamp: "2018-06-12T19:30",
         description:"",
         category:"",
         amount:0,
-        id:0
-        //ToDo - add user id
+        id:0,
+        userId: JSON.parse(localStorage.getItem("etUserId"))
     });
 
     const handelChange =(e)=>{
@@ -54,7 +54,7 @@ const ExpenseTracker = ()=> {
 
         try {
                 if(!expense.createStamp || !expense.description || !expense.category || !expense.amount){
-                    throw new Error("All fields must be field");
+                    throw new Error("All fields are required.");
                 }
 
                 if(select.add){
@@ -62,7 +62,8 @@ const ExpenseTracker = ()=> {
                     createStamp : new Date(expense.createStamp).getTime(),
                     description : expense.description,
                     category : expense.category,
-                    amount : expense.amount
+                    amount : expense.amount,
+                    userId: JSON.parse(localStorage.getItem("etUserId"))
                 });
 
                 if(axiosResponse.status == 201){

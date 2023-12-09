@@ -8,5 +8,14 @@
       "id": 1
     }
   ],
-  "expenses": []
+  "expenses": [
+    {
+      "createStamp": 1528293600000,
+      "description": "changed",
+      "category": "utilities",
+      "amount": "500",
+      "userId": 1,
+      "id": 2
+    }
+  ]
 }
