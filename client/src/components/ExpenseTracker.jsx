@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import 'tailwindcss/tailwind.css';
 import { getCurrentSimpleDateTime, getSimpleDateTime } from "../utils/date.converter";
 
+
 const ExpenseTracker = ()=> {
     const [expenseList, setExpenseList] = useState([])  
       
@@ -15,8 +16,10 @@ const ExpenseTracker = ()=> {
         delete:false
     });
 
+    const getUserId = JSON.parse(localStorage.getItem("etUserId"));
+
     const getExpense =async() => {
-        const getExpenseList = await axios.get('http://localhost:3001/expenses');
+        const getExpenseList = await axios.get(`http://localhost:3001/expenses?userId=${getUserId}`);
         if(getExpenseList.status == 200){
             let data = getExpenseList.data;
             setExpenseList(data);
@@ -84,7 +87,8 @@ const ExpenseTracker = ()=> {
                     createStamp : new Date(expense.createStamp).getTime(),
                     description : expense.description,
                     category : expense.category,
-                    amount : expense.amount
+                    amount : expense.amount,
+                    userId: JSON.parse(localStorage.getItem("etUserId"))
                 });
 
                 console.log(axiosResponse);

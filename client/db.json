@@ -16,6 +16,13 @@
       "amount": "500",
       "userId": 1,
       "id": 2
+    },
+    {
+      "createStamp": 1529596920000,
+      "description": "test expense updated",
+      "category": "utilities",
+      "amount": "2000",
+      "id": 3
     }
   ]
 }

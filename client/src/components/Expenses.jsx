@@ -17,7 +17,7 @@ const Expenses = () => {
             const getExpenses = async() => {
                 try {
                     const axiosRequest = await axios.get(`http://localhost:3001/expenses?userId=${userId}`);
-                    console.log(axiosRequest);
+                    
                     const axiosResponse = axiosRequest.data;
                     if(axiosRequest.status === 200){
                         setExpenses(axiosResponse);
