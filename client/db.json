@@ -8,20 +8,5 @@
       "id": 1
     }
   ],
-  "expenses": [
-    {
-      "id": 10,
-      "createStamp": 1234567,
-      "description": "expense.description",
-      "category": "xpense.category",
-      "amount": 500
-    },
-    {
-      "createStamp": 1529769600000,
-      "description": "renenene",
-      "category": "rent",
-      "amount": "6000",
-      "id": 11
-    }
-  ]
+  "expenses": []
 }
