@@ -1,7 +1,7 @@
 const Home = () =>{
     return (
         <>
-            <main className="w-full min-h-screen">
+            <main className="w-full min-h-screen select-none">
                 <div className="w-full h-130 flex flex-col items-center justify-center">
                     <p className="font-light text-green-600 text-8xl">Simple way</p>
                     <p className="font-light text-8xl">to manage <span className="text-green-600">personal finances</span></p>
